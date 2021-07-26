@@ -1,0 +1,75 @@
+Disk Partitioning:
+1.view all disk in luinx the following command list all existing disk partion
+    fdisk -l
+2.view specific Disk Partition in Linux -l wth device name
+   fdisk -l /dev/xvdf
+
+3.Check all Available fdisk Commands Simply use the following command 
+   fdisk /dev/xvdf
+    after that press m
+    press n for add new partion
+     press double enter
+      add mermory +4G our here adding the volume size
+         press t
+         press L to select lvm or swap like this options
+         wq
+4. after that to take that changes to accept the kerenal version we are used the 
+   following command 
+      portprobe /dev/xvdf
+5.after that to acess that partion volume we have to make a file system
+   type lsblk
+   after that  mkfs.xfs /dev/xvdf1
+6.mounting the device
+   mkdir newfile
+   mount /dev/xvdf newfile
+7.after that to check mounting point is done or not for that we use
+    df -Th
+---------------------------------------------------------------------------------------------------------------
+for permanet mounting we have updating the vi /etc/fstab
+ inthat
+  /dev/xvdf1  /root/new   xfs  defaults  0  0 give the details as follow 
+then u restart ur server the mounting is not delete
+------------------------------------------------------------------
+Swap space
+Swap space is the second type of memory in modern Linux systems. The primary function of swap space is to 
+substitute disk space for RAM memory when real RAM fills up and more space is needed.
+1.free -m .......to check free space
+2.swapon -s  to see usage of swap
+2.mkswap /dev/xvdf  .....to create file syatem for swap
+3.swapon /dev/xvdf .....to activate mount
+----------------------------------------------------------------------------------
+Logical Volume Management (LVM)
+1.makes it easier to manage disk space. If a file system needs more space it can be added to its logical volumes
+ from the free spaces in its volume group and the file system can be re-sized as we wish
+ 
+2.If a disk starts to fail, replacement disk can be registered as a physical volume with the 
+volume group and the logical volumes extents can be migrated to the new disk without data loss..  
+
+for that we have following steps follow for creating of the logical volumes
+1.lsblk  check using this command for to see the disk partions
+ 2.fdisk  /dev/xvdf to enter into the particular device
+    press m ----for help
+    press n ----for new partion
+     enter
+     enter
+     add memory +2G
+     press t
+      press L
+       here select the 8e this is for the slection of lvm file system
+        wq
+3. afer that partprobe /dev/xvdf-------to reboot the kernel
+same procedure for another device also
+#now create the physical volume
+  pvcreate /dev/xvdf1 /dev/xvdf2
+#pvs -----to show all pvs
+afer that now create volume group
+
+  #vgcreate vGo /dev/xvdf1 /dev/xvdf2
+  # vgs --------
+  # lvcreate -n lvo -L +2G vGo------to create logical volume
+  # Lvdisply /dev/vGo/lvo
+  #mkfs.xfs /dev/vGo/lvo------to create file system
+  #mkdir test
+    #mount /dev/vGo/test  /test ----------for mounting purpose
+    # df -h to check mont is done or not 
+----------------------------------------------------------------------------------------------------------------------------  

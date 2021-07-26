@@ -1,0 +1,118 @@
+file:
+Linux Directory Structure:
+1. / – Root :
+    Every single file and directory starts from the root directory
+    Only root user has write privilege under this directory 
+2. /bin – User Binaries
+    Contains binary executables
+    Common linux commands you need to use in single-user modes are located under this directory
+3. /sbin – System Binaries
+    Just like /bin, /sbin also contains binary executables
+4. /etc – Configuration Files
+    Contains configuration files required by all programs
+    For example: /etc/resolv.conf, /etc/logrotate.conf
+5. /dev – Device Files
+    Contains device files.
+    These include terminal devices, usb, or any device attached to the system.
+    For example: /dev/tty1, /dev/usbmon0
+6. /proc – Process Information   
+    Contains information about system process.   
+    This is a pseudo filesystem contains information about running process
+7. /var – Variable Files
+    var stands for variable files.
+    Content of the files that are expected to grow can be found under this directory
+8. /tmp – Temporary Files
+    Directory that contains temporary files created by system and users
+9. /usr – User Programs
+   Contains binaries, libraries, documentation, and source-code for second level programs
+10. /home – Home Directories
+    Home directories for all users to store their personal files.
+    For example: /home/john, /home/nikita
+11. /boot – Boot Loader Files
+    Contains boot loader related files.
+    Kernel initrd, vmlinux, grub files are located under /boot
+    For example: initrd.img-2.6.32-24-generic, vmlinuz-2.6.32-24-generic
+12. /lib – System Libraries
+    Contains library files that supports the binaries located under /bin and /sbin
+    Library filenames are either ld* or lib*.so.*
+    For example: ld-2.11.1.so, libncurses.so.5.7
+13. /opt – Optional add-on Applications
+    opt stands for optional.
+    Contains add-on applications from individual vendors.
+    add-on applications should be installed under either /opt/ or /opt/ sub-directory.
+14. /mnt – Mount Directory
+    Temporary mount directory where sysadmins can mount filesystems.
+15. /media – Removable Media Devices    
+    Temporary mount directory for removable device
+--------------------------------------------------------------------------------------------------------------------------------
+Listing Files
+
+ls          listed files
+ls  -l      long listed files 
+ls  -il     list files with inode number 
+ls  -a     list hidden files 
+
+Display content of files:            cat ,  vim , vi 
+count no of words in a  files:     wc
+copy files:      cp     source_file     destination_file
+Deleting Files:   rm    filename
+remove multiple files at a time:    rm   filename1   filename2    filename3 
+---------------------------------------------------------------------------------------------------------------------------------
+cat    /etc/passwd  >  /tmp/out   # redirect cat's standard out to /tmp/foo
+cat    /nonexistant 2> /tmp/err   # redirect cat's standard error to /tmp/error
+cat     < /etc/passwd                     # redirect cat's standard input to /etc/passwd
+
+cat < /etc/passwd > /tmp/out 2> /tmp/err
+
+ls -al myfirstscript 1> longlisting
+ls -al myfirstscript >> longlisting
+cat < myfirstscript >    mynewscript  == cp myfirstscript mynewscript
+-----------------------------------------------------------------------------------------------------------------------------------
+linux file system 
+
+Meta data information kept separately.”inodes” are used for describing files.
+As we learned, data held in files is kept in data blocks
+Each file in the system is described with an inode data structure
+The inode contains the specifics of the file – the permissions, last access time, the blocks where data resides, etc.
+---------------------------------------------------------------------------------------
+soft link and hard link 
+
+every file in the file system has a inode 
+contains meta inforamtion about the  file 
+they contains -- inode number, file size, owner information, permissions, file type, number of  links 
+inode is a database of a file 
+
+two types of links -- soft link  & hard link
+
+soft link
+soft link is a shortcut of a file 
+soft link is also called as symbolic link 
+the inode number of softlink file and original file is diffearent 
+if we delete the  original file the soft link file cant not access 
+
+hard link 
+diffearent name of the same file 
+it has same file size,  and same inode no between hardlink file and original file 
+if we delete original file after also access data on hard link file.
+--------------------------------------------------------------------------------------------------------------------------------------
+u mask 
+umask controls the file permissions 
+based on umask value we will set a file &  directories permissions for super user and regular users 
+
+default permissions in the file sytem 
+files -- 666
+directories   -- 777 
+
+umask
+umask for regular user -- 0002
+umask for root -- 0022 
+
+calculate permission for root 
+file:  666 - 022  = 644
+directory:  777 - 022 = 755
+
+calculcate permissions for regular user 
+file: 666 - 002 = 664
+directory:  777 - 002 = 775 
+
+The default umask is now in /etc/login.defs

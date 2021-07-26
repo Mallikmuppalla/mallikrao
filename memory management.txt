@@ -1,0 +1,118 @@
+free -m -----to check the RAM size
+Memory:
+The information displayed in the memory section provides the same data about memory usage as the command free -m.
+The swapd or “swapped” column reports how much memory has been swapped out to a swap file or disk. 
+The free column reports the amount of unallocated memory. 
+The buff or “buffers” column reports the amount of allocated memory in use.
+ The cache column reports the amount of allocated memory that could be swapped to disk or unallocated
+ if the resources are needed for another task.
+swpd: the amount of virtual memory used.
+free: the amount of idle memory.
+buff: the amount of memory used as buffers.
+cache: the amount of memory used as cache.
+inact: the amount of inactive memory. (-a option)
+active: the amount of active memory. (-a option)
+
+cat /proc/meminfo------to check ram details
+df -h-------disk free size in human readable formate
+du -h-------disk usage
+log summery:http://www.scmgalaxy.com/tutorials/20-vmstat-commands-examples-in-linux-unix/
+------------------------------------------------------------------------------------------------------
+CPU
+The cpu section reports on the use of the system’s CPU resources. 
+The columns in this section always add to 100 and reflect “percentage of available time”.
+The us column reports the amount of time that the processor spends on userland tasks, or all non-kernel processes. 
+Top----
+sar------to check the cpu utilization
+Sar is part of the sysstat package.
+following Linux performance statistics using sar.
+Collective CPU usage
+Individual CPU statistics
+Memory used and available
+Swap space used and available
+Overall I/O activities of the system
+Individual device I/O activities
+Context switch statistics
+Run queue and load average data
+Network statistics
+Report sar data from a specific time
+Install Sysstat Package
+yum install sysstat
+the following gives the system CPU statistics 3 times (with 1 second interval).
+ sar 1 3
+ps---------------to check the processor details
+ps -ef--------
+-----------------------------------------------------
+Swap:
+The swap section reports the rate that memory is sent to or retrieved from the swap system.
+ By reporting “swapping” separately from total disk activity, vmstat allows you to determine 
+how much disk activity is related to the swap system.
+The si column reports the amount of memory that is moved from swap to “real” memory per second. 
+The so column reports the amount of memory that is moved to swap from “real” memory per second.
+si: Amount of memory swapped in from disk (/s).
+so: Amount of memory swapped to disk (/s).
+----------------------------------------------------------------------------------------------------
+iosat:
+How to Monitor Linux Systems Performance with iostat command
+iostat command generally generates two reports:
+1.CPU utilization report
+2.All disks i/o statistics report
+To generate the reports, iostat command reads some of the system files . 
+These files are,
+/proc/diskstats for disk stats
+/proc/stat for system stats
+/sys for block device stats
+/proc/devices for persistent device names
+/proc/self/mountstats for all  the network filesystems
+/proc/uptime for information regarding system uptime
+Iostat Installation on Linux Systems
+ostat is a part of ‘sysstat‘ package, we can install it on our system using the following command
+CentOS/RedHat
+# yum install sysstat -y
+Ubuntu/Debian
+# apt-get install sysstat -y
+Get complete statistics (CPU & Devices)
+# iostat
+Generate only CPU stats
+# iostat -c
+To Generate i/o statistics for all the devices (-d option) 
+# iostat -d
+Blog:https://www.linuxtechi.com/monitor-linux-systems-performance-iostat-command/
+----------------------------------------------------------------------------------------------------------------
+vmsat:
+vmstat – Report virtual memory statistics. vmstat is a tool that collects and reports data about 
+your system’s memory, swap, and processor resource utilization in real time.
+It can be used to determine the root cause of performance and issues related to memory use.
+iostat reports CPU, disk I/O, and NFS statistics.
+vmstat reports virtual memory statistics.
+mpstat reports processors statictics.
+
+How to install vmstat?
+1. Ensure you are logged in as ‘root’
+‘iostat’ and ‘vmstat’ are apart of the ‘sysstat’ package and should be installed by default
+2. Verify installation :
+# rpm -qa | grep -i sysstat
+3. Installation, if needed :
+# rpm -ivh <name>
+4. If you have connectivity to RHN or a Satellite Server:
+# yum install sysstat
+5. If you are using Ubantu:
+# apt-get install sysstat
+Most important fields are free under memory and si, so under swap column.
+# vmstat -a
+Disks Statistics, vmstat with -d option display all disks statistics.
+ vmstat -d
+Blog summery:http://www.scmgalaxy.com/tutorials/20-vmstat-commands-examples-in-linux-unix/
+---------------------------------------------------------------------------------------------------
+Network Configuration
+1. ifconfig Command
+ifconfig is a command line interface tool for network interface configuration and also
+ used to initialize an interfaces at system boot time
+ifconfig
+Ping Command
+ping (Packet INternet Groper) is a utility normally used for testing connectivity between two systems
+ on a network (Local Area Network (LAN) or Wide Area Network (WAN)).
+Netstat Command
+netstat is a command line tool that displays useful information such as network connections, routing tables, 
+interface statistics, and much more, concerning the Linux networking subsystem
+$ sudo netstat -tnlp

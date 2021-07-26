@@ -1,0 +1,108 @@
+Checking Port status of Tomcat and if it is down going to start automatically
+====================================================================================================================================
+
+#!/bin/bash
+RESULT=`netstat -na | grep 8080 | awk  {print $7} | wc -l`
+
+
+
+if [ "$RESULT" = 0 ] then
+echo " Tomct Service  down in testserver1" | mail -s "Tomcat service is down in testerver1" mailid@gmail.com -c mailid2@gmail.com
+killall -9 java
+killall -9 java
+sleep 20
+/usr/local/tomcat/bin/startup.sh
+echo " Tomca service is start by script in testserver1" | mails -s "tomcat service is start up script in testserer1
+elif [ "$RESULT" = 0 ] then
+echo
+fi
+
+
+*********************************************************************************************************************
+Generate one day before Tomcat logs and sending email
+===================================================================================================================================
+#!/bin/bash
+
+]newdir=/home/mhr/server1_logs_`date +%b%d%y`
+
+mkdir $newdir
+yest=$(date --date="yesterday" +"%F")
+today=$(date +"%F"
+sed -n "/ $yest /,/ $today/p" /usr/local/tomcat/logs/catalina.out > $newdir/catalina..out_$yest.txt
+cd /home/mhr
+tar-cvzf server1_logs_`date +%b%d%y`.tar.gz server1_logs_`date +%b%d%y`
+
+echo " server1 tomcat logs " | mails -s "server1 tomcat logs" mailid@gmail.com -c mailid2@gmail.com
+rm -rf $newdir
+#####################################################################################################
+Sending email If file system greater than 85% 
+===================================================
+
+#!/bin/bash
+RESULT=`df -h  | grep /dev/xvdf | awk  {prini $7} | wc -l`
+if [ "$RESULT" -ge 85 ] then
+echo " disk is filled more then 85 %" | mail -s "disk is filled more then 85"
+fi
+
+################################################################################################
+Taking the Backup of MySql logs and making empty file
+===========================================================
+
+#!/bin/bash
+
+5
+
+RESULT=`df -h  | grep /dev/xvdf | awk  {prini $7} | wc -l`
+if [ "$RESULT" -ge 85 ] 
+cd /var/log/mysqllogs
+
+tar -cvzf mysql_genrallogs.tar.gz mysql_genrallogs
+cat /dev/null > mysql_genrallogs
+echo " mysql_genrallogs taken backup and empty mysql_genrallog file empty" | mail -s "mysql_genrallogs taken backup and empty mysql_genrallog file empty"
+
+fi
+
+#######################################################################################################
+Keeping the files last 5 days and removing old files 
+========================================================
+
+#!/bin/bash
+
+find /home/mhr/Backup_server1 -type f -mtime +5 -exec rm {} \;
+
+
+#####################################################################################################333
+While creating user checking for existance
+========================================================
+
+print " please enter user name"
+read username
+grep $username /etc/passwd >/dev/null
+if [ $? -eq 0 ]; then
+    echo "given user is exist" 
+else
+    echo "user is not exist"
+fi
+
+###################################################################################
+cd /usr/local/tomcat/
+
+tar -cvzf  /home/mhr/backup/tomcat_backup_`date +%b%d%y`.tar.gz  weapps
+
+
+scp -r /home/mhr/backup/tomcat_backup_`date +%b%d%ty`.tar.gz 192.168.0.10:/home
+
+echo "tomcat backup is copied to 10 server" mail -s tomcat backup is copied into 10 server"  mail1@gmail.com
+ 
+
+
+
+
+
+
+
+
+ 
+
+
+

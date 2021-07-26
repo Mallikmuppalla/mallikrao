@@ -1,0 +1,21 @@
+List of Environment Variables in Linux/Unix
+What is a Variable?
+In computer science, a variable is a location for storing a value which can be a filename, text, number or any other data. 
+It is usually referred to with its Symbolic name which is given to it while creation.
+What are Environment variables?
+Environment variables are dynamic values which affect the processes or programs on a computer. 
+They exist in every operating system, but types may vary.
+Environment variables can be created, edited, saved, and deleted and give information about the system behavior.
+
+Variable	Description
+PATH	        This variable contains a colon (:)-separated list of directories in which your system looks for executable files.
+USER	        The username
+HOME	        Default path to the user's home directory
+Set New Environment Variables
+VARIABLE_NAME= variable_value
+Again, bear in mind that variables are case-sensitive and usually they are created in upper case.
+export JAVA_HOME="/opt/jdk1.8.0_211"
+export PATH=$JAVA_HOME/bin:$PATH
+---------------------------------------------------------------------------------------------------------------------------------
+
+

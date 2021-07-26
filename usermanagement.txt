@@ -1,0 +1,103 @@
+user management in linux
+1.How to Add a New User in Linux
+ useradd username
+ ex. useradd bharathi
+When we add a new user in Linux with ‘useradd‘ command it gets created in locked state and to unlock that user account, 
+we need to set a password for that account with ‘passwd‘ command.
+2.passwd bharathi
+  give passwd
+Once a new user created, it’s entry automatically added to the ‘/etc/passwd‘ file. 
+The file is used to store users information and the entry should be.
+3.vi /etc/passwd to give all user information
+4.Create a User with Different Home Directory
+    useradd -d /data/projects anusha
+    here we are giving -d option
+5.Add a User to Multiple Groups
+   useradd -G admins,webadmin,developers bharathi
+6. /etc/passwd – User account information.
+7./etc/shadow – Secure account information.
+8./etc/group – Group account information.
+9./etc/gshadow – Secure group account information.
+10./etc/login.defs – Shadow password suite configuration
+--------------------------------------------------------------------------------
+Group primary and secondary
+1.usermod -g sales bharathi-----to modify primary group of the user
+2.usermod -G  sales bharathi-----to modify secondary group of the user
+----------------------------------------------------------------------
+How to delete users and groups
+ userdel username
+ userdel bharathi
+ groupdel sales
+--------------------------------------------------------------------
+groupmod -n sales aws----to change the group name
+-----------------------------------------------------------------
+sudoers
+The sudoers file is a file Linux and Unix administrators use to allocate system rights to system user
+# /etc/sudoers
+#
+# This file MUST be edited with the 'visudo' command as root.
+#
+# See the man page for details on how to write a sudoers file.
+#
+
+Defaults    env_reset
+
+# Host alias specification
+
+# User alias specification
+
+# Cmnd alias specification
+
+# User privilege specification
+root    ALL=(ALL) ALL
+
+# Allow members of group sudo to execute any command after they have
+# provided their password
+# (Note that later entries override this, so you might need to move
+# it further down)
+%sudo ALL=(ALL) ALL
+#
+#includedir /etc/sudoers.d
+
+# Members of the admin group may gain root privileges
+----------------------------------------------------------------------------------------------
+Run Levels in Linux
+Prerequisite : Linux Booting
+A run level is a state of init and the whole system that defines what system services are operating. Run levels are identified by numbers
+Some system administrators use run levels to define which subsystems are working,
+ e.g., whether X is running, whether the network is operational, and so on.
+The important thing to note here is that there are differences in the runlevels according to the operating system
+The standard LINUX kernel supports these seven different runlevels 
+0 – System halt i.e the system can be safely powered off with no activity.
+1 – Single user mode.
+2 – Multiple user mode with no NFS(network file system).
+3 – Multiple user mode under the command line interface and not under the graphical user interface.
+4 – User-definable.
+5 – Multiple user mode under GUI (graphical user interface) and this is the standard runlevel for most of the LINUX based systems.
+6 – Reboot which is used to restart the system.
+------------------------------------------------------------------------------------------------------------------------
+Attributes ( chattr and lsattr )---------to give security to the files or directories
+Following are the list of common attributes and associated flags can be set/unset using the chattr command.
+A file is set with ‘a‘ attribute, can only be open in append mode for writing.
+A file is set with ‘i‘ attribute, cannot be modified (immutable). Means no renaming, no symbolic link creation, no execution, no writable, only superuser can unset the attribute.
+A file with the ‘j‘ attribute is set, all of its information updated to the ext3 journal before being updated to the file itself.
+A file is set with ‘t‘ attribute, no tail-merging.
+A file with the attribute ‘d‘, will no more candidate for backup when the dump process is run.
+When a file has ‘u‘ attribute is deleted, its data are saved. This enables the user to ask for its undeletion
+Operator
++ : Adds the attribute to the existing attribute of the files.
+– : Removes the attribute to the existing attribute of the files.
+= : Keep the existing attributes that the files have.
+
+touch demo.txt
+chattr +i demo.txt------apply the command for chattr
+Note: The immutable bit +i can only be set by superuser (i.e root) user or a user with sudo privileges can able to set.
+After setting immutable bit, let’s verify the attribute with command ‘lsattr‘.
+Now, tried to delete forcefully, rename or change the permissions, but it won’t allowed says “Operation not permitted“.
+rm -rf demo.txt
+ Operation not permitted
+lsattr---to show the attributes apply or not
+chattr -i demo.txt------to remove attributes
+--------------------------------------------------------------------------------------------------------------
+
+

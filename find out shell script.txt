@@ -1,0 +1,47 @@
+write a shellscript find all vowels and their count in a Sentence 
+
+#!/bin/sh
+
+echo -n "Enter a line of text: "
+read string
+
+numCount=$(echo $string | grep -o "[0-9]" | wc --lines)
+vowCount=$(echo $string | grep -o -i "[aeiou]" | wc --lines)
+consCount=$(echo $string | grep -o -i "[bcdfghjklmnpqrstvwxyz]" | wc --lines)
+
+echo "The given string has $vowCount vowels, $consCount consonants and $numCount numbers in it."
+-------------------------------------------------------------------------------------------------------------------
+#!/bin/bash
+# Call this script with at least 3 parameters
+echo "First parameter is $1"
+echo "Second parameter is $2"
+echo "Third parameter is $3"
+exit 0
+https://www.techbeamers.com/20-shell-scripting-questions-answers/
+---------------------------------------------------------------------------------------------------------------
+shell script for find the value of one number raised to the power of another in 
+echo "Input number"
+read no
+echo "Input power"
+read power
+
+counter=0
+ans=1
+while [ $power -ne $counter ]
+do
+        ans=`expr $ans \* $no`
+        counter=`expr $counter + 1`
+done
+Input number
+3
+Input power
+2
+3 power of 2 is 9
+--------------------------------------------------------------------------------------------------------------------------
+Subnet
+A subnet is a single small network created from a large network. 
+In Subnetting we break a single large network in multiple small networks. These networks are known as subnet
+Network address and Broadcast address
+In each network there are two special addresses; network address and broadcast address.
+ Network address represents the network itself while broadcast address represents all the hosts which belong to it. These two addresses can’t be assigned to any individual host in network.
+ Since each subnet represents an individual network, it also uses these two addresses.

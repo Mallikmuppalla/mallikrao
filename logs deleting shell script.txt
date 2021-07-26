@@ -1,0 +1,23 @@
+write a shellscript to delete alog files 15 days ago based on directory path
+#! /bin/bash
+FOLDER=$1
+N_DAYS=$1
+
+# Validate
+if [ "$FOLDER" == "" ] || [ "$N_DAYS" == "" ]
+then
+echo "Usage: $0 folder number_of_days"
+exit 1
+fi
+
+if [ ! -d "$FOLDER" ]
+then
+echo "$FOLDER is not a directory"
+exit 2
+fi
+
+# Remove
+echo "Deleting files in $FOLDER older than $N_DAYS days"
+find $FOLDER/* -mtime +$N_DAYS -exec rm {} \;
+------------------------------------------------------------------------------
+run the script ./logs.sh /var/log/path days

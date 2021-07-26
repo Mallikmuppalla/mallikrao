@@ -1,0 +1,48 @@
+What is YUM?
+YUM (Yellowdog Updater Modified) is an open source command-line as well as
+graphical based package management tool for RPM (RedHat Package Manager) based Linux systems
+# yum install package name
+# yum remove package name
+# yum update to update repo
+# yum clean all
+------------------------------------------------------------------------------------------------
+RPM (Red Hat Package Manager) is an default open source and most popular package management
+ utility for Red Hat based systems like (RHEL, CentOS and Fedora)
+There are five basic modes for RPM command
+Install : It is used to install any RPM package.
+Remove : It is used to erase, remove or un-install any RPM package.
+Upgrade : It is used to update the existing RPM package.
+Verify : It is used to verify an RPM packages.
+Query : It is used query any RPM package.
+How to Install an RPM Package
+rpm -ivh pidgin-2.7.9-5.el6.2.i686.rpm
+How to List All Installed RPM Packages
+# rpm -qa
+List all Enabled and Disabled Yum Repositories
+#yum repolist all
+Clean Yum Cache
+# yum clean all
+
+-------------------------------------------------------------------------------------------------
+Install a Package with apt
+Here comes the most famous use of the apt-get command; installing software from an updated repository.
+
+Use the following command as root in order to install a software package:
+
+$ sudo apt-get install “package-name”
+----------------------------------------------------------------------------------------------
+What is Wget?
+GNU Wget is a command line utility for downloading files from the web. With Wget.
+ you can download files using HTTP, HTTPS, and FTP protocols. Wget provides 
+a number of options allowing you to download multiple files
+Installing Wget on Ubuntu and Debian
+sudo apt install wget
+Installing Wget on CentOS and Fedora
+sudo yum install wget
+-------------------------------------------------------------------------------------------------------
+Use RPM in Linux to install software
+RPM (RPM Package Manager) is a popular utility for installing software on Unix-like systems, particularly Red Hat Linux. 
+The following is an example of how to use RPM:
+
+
+

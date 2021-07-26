@@ -1,0 +1,4 @@
+printf 'enter two files'
+read myfile.txt myfile2.txt
+cp $myfile.txt $myfile2.txt
+ech 'file copied

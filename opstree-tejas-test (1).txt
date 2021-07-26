@@ -1,0 +1,311 @@
+moving files within directories
+syntax :  mv   [Option]   source    destination
+move files from one dir to another dir  :  mv    opstree/*                    techno/
+instead of all files move single file:           mv    opstree/abc.txt          techno/
+change files and dir names :                       mv    file-name/dir-name    newname file/dir 
+override the existing files:                          mv   abcd.txt   tree.txt   
+copy one file content to new file :            mv    rain(existing)   raining 
+
+options:  
+-i : prompt for connfirmation 
+-f : forcefully 
+
+--------------------------------------------------------------------------------------------------------------------------
+file filename          Identifies the file type (binary, text, etc)
+file  exmple.txt      output is  example.txt:  ASCII text  
+file  directory1       output  is directory1:    directory
+--------------------------------------------------------------------------------------------------------------------------
+/bin            contains commands that may be used by both the system administrator and by users
+/srv             Data for services provided by this system
+/dev             Device files
+/etc              Host-specific system configuration
+/lib               Essential shared libraries and kernel modules
+/media        Mount point for removable media
+/mnt           Mount point for mounting a filesystem temporarily
+/opt             Add-on application software packages
+/sbin            Essential system binaries
+/tmp           Temporary files
+/usr             Secondary hierarchy
+/var             Variable data
+-----------------------------------------------------------------------------------------------------------------------------
+Listing Files
+
+ls          listed files
+ls  -l      long listed files 
+ls  -il     list files with inode number 
+ls  -a     list hidden files 
+
+Display content of files:            cat ,  vim , vi 
+count no of words in a  files:     wc
+copy files:      cp     source_file     destination_file
+Deleting Files:   rm    filename
+remove multiple files at a time:    rm   filename1   filename2    filename3  
+------------------------------------------------------------------------------------------------------------------------------
+stdin     standardinput       stdin for a stream input    <      stdin, comes from the keyboard.   cat < myfirstscript
+stdout   standardoutput    stdout for a stream out     >      
+stderr    standarderror       stderr for printing errors or log messages.  2>    
+
+cat    /etc/passwd  >  /tmp/out   # redirect cat's standard out to /tmp/foo
+cat    /nonexistant 2> /tmp/err   # redirect cat's standard error to /tmp/error
+cat     < /etc/passwd                     # redirect cat's standard input to /etc/passwd
+
+cat < /etc/passwd > /tmp/out 2> /tmp/err
+
+ls -al myfirstscript 1> longlisting
+ls -al myfirstscript >> longlisting
+cat < myfirstscript >    mynewscript  == cp myfirstscript mynewscript
+
+ls -al  2>   myerror
+ls -al  2>> myerror
+------------------------------------------------------------------------------------------------------------------------------------
+suid
+All users should be able to execute a program owned by a particular user
+If you are the owner of an executable file, with the help of SUID permission set, other users will be running the executable with your permission
+As root is the owner of that file, and SUID being set on that file, any user executing the /usr/bin/passwd command will execute it as root user
+
+-rwsr-xr-x 1 root root 34904 Mar 12  2014 /bin/su ,   
+/bin/ping,  /bin/mount,  /bin/umount, /usr/bin/chage,  
+/usr/bin/passwd, /usr/bin/sudo, /usr/bin/crontab
+
+chmod     u+s   executale file
+chmod    4750  executable file 
+
+sgid 
+SGID (Set Group ID up on execution) is a special type of file permissions given to a file/folder. 
+Normally in Linux/Unix when a program runs, it inherits access permissions from the logged in user.
+The setgid permission displays as an “s” in the group’s execute field.
+  
+chmod   g+s     file / dir
+chmod   2555  file / dir 
+
+stickybit
+The sticky bit works on directories only
+sticky bit set on a directory, anyone can create a file/directory in it, but can delete his own files only.Files owned by other users cannot be deleted.
+root user (Off course!) and owner of the files can remove their own files.
+
+chmod   o+t    dir-name 
+-------------------------------------------------------------------------------------------------------------------------------------------
+Access Control Lists(ACL) in Linux
+setfacl and getfacl are used for setting up ACL
+set up different permission sets for different users on same directory or file
+Access ACLs: Access ACLs are used for granting permissions on any file or directory.
+Default ACLs: Default ACLs are used for granting/setting access control list on a specific directory only.
+
+
+setfacl -m "u:user:permissions" /path/to/file
+setfacl -m "g:group:permissions" /path/to/file 
+setfacl -dm "entry" /path/to/dir
+setfacl -x "entry" /path/to/file
+setfacl -b path/to/file
+
+example 
+setfacl -m u:mandeep:r-x test/declarations.h
+setfacl -m u:dummy:rw text.cfg
+getfacl text.cfg
+
+setfacl -m u:dummy:rwx text.cfg && getfacl text.cfg
+
+view acl
+getfacl filename
+
+If you want to remove the set ACL permissions, use setfacl command with -b option.
+
+After implementing ACL, you will see a extra ‘+‘ sign for ‘ls –l’ output as below.
+drwxrwx---+ 2 tecmint1 tecmint1 4096 Apr 17 17:01 example
+---------------------------------------------------------------------------------------------------------------------------------------------------
+Linux booting process
+we can mainly divide the Linux booting process in to five areas. The BIOS, Stage I boot loader, Stage II boot loader, Kernel and Init
+
+bios:
+BIOS stands for Basic Input/Output System
+BIOS conduct POST  (power on self test ) is used to perform hardware initialization during the booting process. 
+BIOS Searches, master boot  record 
+Once the boot loader is detected and loaded into the memory
+Then BIOS start and executes MBR boot  loader 
+
+MBR:
+MBR stands for Master Boot Record
+It is located in the 1st sector of the bootable disk.
+MBR is less than 512 bytes in size. 
+MBR has three components 1) primary boot loader info is  1st 446 bytes 2) partition table is 64 bytes 3) mbr validation check is 2 bytes.
+It contains information about GRUB (or LILO in old systems).
+Then MBR loads and executes the GRUB boot loader.
+
+GRUB:
+GRUB stands for Grand Unified Bootloader.
+If you have multiple kernel images installed on your system, it was prompt the kernel options 
+Grub configuration file located in /boot/grub/grub.conf
+GRUB is loaded in to RAM  then search for location of kernel 
+GRUB can load kernel from an ext2 or ext3 file system.
+
+Kernel:
+Mounts the root file system
+Start the core system of shared resource managers
+Kernel executes the /sbin/init program
+Since init was the 1st program to be executed by Linux Kernel,  Do a ‘ps -ef | grep init’ and check the pid.
+initrd stands for Initial RAM Disk.
+
+Init:
+/etc/inittab file to decide the Linux run level.
+
+0 – halt
+1 – Single user mode
+2 – Multiuser, without NFS
+3 – Full multiuser mode
+4 – unused
+5 – X11
+6 – reboot
+--------------------------------------------------------------------------------------------------------------------------------
+linux file system 
+
+Meta data information kept separately.”inodes” are used for describing files.
+As we learned, data held in files is kept in data blocks
+Each file in the system is described with an inode data structure
+The inode contains the specifics of the file – the permissions, last access time, the blocks where data resides, etc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+soft link and hard link 
+
+every file in the file system has a inode 
+contains meta inforamtion about the  file 
+they contains -- inode number, file size, owner information, permissions, file type, number of  links 
+inode is a database of a file 
+
+two types of links -- soft link  & hard link
+
+soft link
+soft link is a shortcut of a file 
+soft link is also called as symbolic link 
+the inode number of softlink file and original file is diffearent 
+if we delete the  original file the soft link file cant not access 
+
+hard link 
+diffearent name of the same file 
+it has same file size,  and same inode no between hardlink file and original file 
+if we delete original file after also access data on hard link file 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+u mask 
+umask controls the file permissions 
+based on umask value we will set a file &  directories permissions for super user and regular users 
+
+default permissions in the file sytem 
+files -- 666
+directories   -- 777 
+
+umask
+umask for regular user -- 0002
+umask for root -- 0022 
+
+calculate permission for root 
+file:  666 - 022  = 644
+directory:  777 - 022 = 755
+
+calculcate permissions for regular user 
+file: 666 - 002 = 664
+directory:  777 - 002 = 775 
+
+The default umask is now in /etc/login.defs
+---------------------------------------------------------------------------------------------------------------------------------------
+Linux File System Quotas
+
+limited by disk quotas cannot use additional disk space beyond his limit
+For example suppose there are four users; user a, user b, user c and user d. Without quota any user can use entire disk space, leaving no space for other users.
+This situation is very common in shared environment such as web hosting, ISPs, file server, ftp server etc. But if disk quota is enabled, no user can use disk space beyond his limit.
+you can configure different quotas for different users and 
+Disk quotas allow you to define just how much space each user is given on a system. 
+
+We can configure disk quotas for individual user or group based on block size or inode number.
+Quota is configured only based on block size
+Quota is configured only based on inode table
+It is highly recommended to configure quota based on both block size and inode number. 1GB block size and 100 inode numbers are configured as quotas for user
+
+How to configure the disk quota:
+Disk quota can be configured in four steps
+1  Enable quota
+2  Remount file system
+3  Create quota files
+4  Configure quota policy
+
+Linux uses /etc/fstab configuration file to mount all partitions in file system at boot time.
+
+# yum install quota
+
+Configuring for Disk Quotas
+edit your /etc/fstab file
+
+#  vi   /etc/fstab  
+/dev/VolGroup00/LogVol02        /home       ext3      defaults   1     2
+:wq
+
+# mount -o remount /home
+
+-a: Check all locally mounted, quota-enabled partitions.
+-v:  Use verbose output.
+
+we have to use the quotacheck command will build a table of the current disk usage of the file systems.
+To create the tables we issue the quotacheck command with the -c option and the option that instructs quotacheck 
+if we are enabling quotas for groups, users, or both.
+
+a: Check all quota-enabled filesystem
+v: Verbose mode
+u: Check for user disk quota
+g: Check for group disk quota
+
+# quotacheck -cu /home
+# quotacheck -avug
+
+# ls -l /home/
+-rw-------    1 root     root        11264 Jun 21 14:49 aquota.user
+-rw-------    1 root     root        11264 Jun 21 14:49 aquota.group
+ 
+
+what are the hard and soft limits?
+Hard limits are an absolute limit. When you set this limit a user absolutely can not go beyond that limit. 
+Soft limits, on the other hand, allows the user the exceed that limit with a grace period.
+
+Per-User Quota:
+# edquota  username
+
+# edquota -t
+
+Filesystem                                      Block grace period               Inode grace period
+/dev/VolGroup00/LogVol02         7days                                    7days
+
+Note that you can set up this grace period for days, hours, minutes, or seconds.
+
+Disk Quota Reports:
+Every once in a while you will want to see a report on quota usage.
+#  repquota -a
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

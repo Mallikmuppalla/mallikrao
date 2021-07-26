@@ -1,0 +1,75 @@
+Blog :https://www.guru99.com/managing-processes-in-linux.html
+What is a Process?
+An instance of a program is called a Process. In simple terms, 
+any command that you give to your Linux machine starts a new process
+Types of Processes:
+Foreground Processes: They run on the screen and need input from the user. For example Office Programs
+Background Processes: They run in the background and usually do not need user input. For example 
+Running a Foreground Process
+To start a foreground process, you can either run it from the dashboard, or you can run it from the terminal.
+
+When using the Terminal, you will have to wait, until the foreground process runs.
+-------------------------------------------------------------------------------------------------------------------------
+Command	Description
+bg	To send a process to the background
+fg	To run a stopped process in the foreground
+top	Details on all Active Processes
+ps	Give the status of processes running for a user
+ps PID	Gives the status of a particular process
+pidof	Gives the Process ID (PID) of a process
+kill PID	Kills a process
+nice	Starts a process with a given priority
+renice	Changes priority of an already running process
+df	Gives free hard disk space on your system
+free	Gives free RAM on your system
+-----------------------------------------------------------------------------------------------------------------------------
+NICE
+Linux can run a lot of processes at a time, which can slow down the speed of some high priority processes and result in poor performance.
+To avoid this, you can tell your machine to prioritize processes as per your requirements.
+This priority is called Niceness in Linux, and it has a value between -20 to 19. The lower the Niceness index,
+ the higher would be a priority given to that task.
+nice -n 'Nice value' process name
+----------------------------------------------------------------------------------------------------------------------------
+Balog:https://www.cyberciti.biz/faq/how-do-i-add-jobs-to-cron-under-linux-or-unix-oses/
+crontab
+Cron allows Linux and Unix users to run commands or scripts at a given date and time. You can schedule scripts to be executed periodically.
+Syntax of crontab (field description)
+Easy to remember format:
+
+* * * * * command to be executed
+- - - - -
+| | | | |
+| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+| | | ------- Month (1 - 12)
+| | --------- Day of month (1 - 31)
+| ----------- Hour (0 - 23)
+------------- Minute (0 - 59)
+Example: Run backup cron job script
+Task: List all your cron jobs
+Type the following command:
+# crontab -l
+# crontab -u username -l
+
+To remove or erase all crontab jobs use the following command:
+# Delete the current cron jobs #
+crontab -r
+MORE EXAMPLES
+To run /path/to/command five minutes after midnight, every day, enter:
+5 0 * * * /path/to/command
+
+Run /path/to/script.sh at 2:15pm on the first of every month, enter:
+15 14 1 * * /path/to/script.sh
+-------------------------------------------------------------------------------------------------------------------------------------
+process states
+Blogsummery: https://www.tecmint.com/linux-process-management/
+States of a Process in Linux
+During execution, a process changes from one state to another depending on its environment/circumstances. In Linux, a process has the following possible states:
+
+Running – here it’s either running (it is the current process in the system) or it’s ready to run (it’s waiting to be assigned to one of the CPUs).
+Waiting – in this state, a process is waiting for an event to occur or for a system resource. Additionally, the kernel also differentiates between two types of waiting processes; 
+interruptible waiting processes – can be interrupted by signals and uninterruptible waiting processes – are waiting directly on hardware conditions and cannot be interrupted by any event/signal.
+Stopped – in this state, a process has been stopped, usually by receiving a signal.
+ For instance, a process that is being debugged.
+Zombie – here, a process is dead, it has been halted but it’s still has an entry in the process table.
+
+

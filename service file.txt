@@ -1,0 +1,56 @@
+Create a script to create an empty file.
+ans)#! /bin/bash
+      touch read.txt
+Create a script to list out all the files in a directory matching to a pattern.
+ans)
+#! /bin/bash
+ls -l | grep $1
+---------------------------------------------------------------------------------------------------------------
+Systemctl:
+It is a systemd utility which is responsible for Controlling the systemd system and service manager.
+whereis systemctl----to find out path of the service
+systemctl: /usr/bin/systemctl /usr/share/man/man1/systemctl.1.gz
+Control and Manage Services Using Systemctl
+How do I start, restart, stop, reload and check the status of a service (httpd.service) in Linux.
+#systemctl start httpd.service
+# systemctl restart httpd.service
+# systemctl stop httpd.service
+# systemctl reload httpd.service
+# systemctl status httpd.service
+The /usr/lib/systemd/user/ directory is the default location where unit files are installed by packages. 
+Unit files in the default directory should not be altered.
+The /run/systemd/system/ directory is the runtime location for unit files.
+The /etc/systemd/system/ directory stores unit files that extend a service. 
+This directory will take precedence over unit files located anywhere else in the system.
+------------------------------------------------------------------------------------------------------------------
+Creating Systemd Service Files
+The .service file
+Controlling the Service
+View Status/Logs
+1.You should copy your .service file to /etc/systemd/system
+Unit]
+Description=My Miscellaneous Service
+After=network.target
+[Service]
+Type=simple
+# Another Type: forking
+User=nanodano
+WorkingDirectory=/home/nanodano
+ExecStart=/home/nanodano/my_daemon --option=123
+Restart=on-failure
+# Other restart options: always, on-abort, etc
+----------------------------------------------------------------------------------------------------------------------
+Count number of lines in a file
+wc -l filename
+Delete a line number from a file
+sed -i /hello/d sample
+        or
+sed -e 3d sample
+
+Print the line number's in the file matching a regex
+sed -n '/regex/=' file
+Return the list of all files with name and their size in a directory with a filter of minimum file size
+ i.e get list of files having size more then 1MB.
+find /  -type f -size +1M-------list the files more than one mb
+find / -type d -size  +1M-------list the directories more than one mb
+------------------------------------------------------------------------------------------------------------------------

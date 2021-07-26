@@ -1,0 +1,85 @@
+Linux TCP/IP Network Configuration Files:
+File	Description
+/etc/resolv.conf	List DNS servers for internet domain name resolution.
+                        Manual page for: /etc/resolv.conf
+/etc/hosts	        Lists hosts to be resolved locally (not by DNS).
+                        Manual page for: /etc/hosts
+/etc/nsswitch.conf	List order of host name search. Typically look at local files, then NIS server, then DNS server.
+                        Manual page for: /etc/nsswitch.conf
+Red Hat/Fedora/CentOS: /etc/sysconfig/network	Specify network configuration. eg. Static IP, DHCP, NIS, etc.
+Red Hat/Fedora/CentOS: /etc/sysconfig/network-scripts/ifcfg-device	Specify TCP network information.
+Ubuntu/Debian: /etc/network/interfaces	Specify network configuration and devices. eg. Static IP and info, DHCP, etc.
+Blogsummery: http://www.yolinux.com/TUTORIALS/LinuxTutorialNetworking.html
+------------------------------------------------------------------------------------------------------------------
+Routing.
+
+Route command is used to show/manipulate the IP routing table.
+ It is primarily used to setup static routes to specific host or networks via an interface
+$ route
+By default route command displays the host name in its output. We can request it to display the numerical IP address
+ using -n option as shown below.
+$ route -n
+4. Reject Routing to a Particular Host or Network
+Sometimes we may want to reject routing the packets to a particular host/network. To do that, add the following entry.
+
+$ route add -host 192.168.1.51 reject
+--------------------------------------------------------------------------------------------------------------
+The /etc/resolv.conf is resolver configuration file for Linux and UNIX like operating systems.
+It is used to configure dns name servers.
+The file /etc/resolv.conf file contains information that is read by the resolver routines the first time they are invoked by a process.
+The file is designed to be human readable and contains a list of keywords with values that provide various types of resolver information.
+You need to update this file with your own caching dns server or ISPs caching dns server that you want to use the resolver should query.
+You can view this file with cat command itself:
+cat /etc/resolv.conf
+Sample outputs:
+
+nameserver 10.0.80.11
+nameserver 10.0.80.12
+---------------------------------------------------------------------------------------------------------
+sysctl is an interface that allows you to make changes to a running Linux kernel. With /etc/sysctl.conf you can configure various
+ Linux networking and system settings such as:
+ Limit network-transmitted configuration for IPv4
+Limit network-transmitted configuration for IPv6
+Turn on execshield protection
+Prevent against the common ‘syn flood attack’
+Turn on source IP address verification
+Prevents a cracker from using a spoofing attack against the IP address of the server.
+Logs several types of suspicious packets, such as spoofed packets, source-routed packets, and redirects.
+--------------------------------------------------------------------------------------------------------------------
+Purpose of bashrc file:
+
+You can export environment variables(So there is no need to export environment variable every time)
+You can define aliases
+You can provide the path for cross compiler
+You can add your own script which can start automatically whenever new shell is opened.
+You can change the history length
+-----------------------------------------------------------------------------------------------------------------------
+netstat — Print information about network connections, routing tables, interface statistics, masquerade connections, and multicast memberships.
+yum install net-tools 
+netsat -lntp
+---------------------------------------------------------------------------------------------------------------------
+proc file system in Linux
+It contains the useful information about the processes that are currently running, it is regarded as control and information centre for kernel.
+The proc file system also provides communication medium between kernel space and user space
+ls -l /proc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
